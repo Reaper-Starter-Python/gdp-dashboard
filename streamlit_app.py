@@ -1,32 +1,39 @@
 import streamlit as st
+import time
 
-# Título do Site
-st.title('📅 Meu Gerenciador de Tarefas Diárias')
-st.markdown('---')
+# Configuração da página para ficar com estilo escuro/bonito
+st.set_page_config(page_title="Pedido Especial", page_icon="❤️", layout="centered")
 
-# As suas variáveis com as tarefas
-seg = 'Tomar café, Tomar banho, Estudar programação'
-ter = 'Tomar café, Tomar banho, Estudar LIBRAS'
-qua = 'Tomar café, Tomar banho, Estudar sobre Cyberdecks'
-qui = 'Tomar café, Tomar banho, Estudar Hardware'
-sex = 'Tomar café, Tomar banho, Estudar Francês'
+st.title("💌 Uma pergunta muito importante...")
+st.markdown("---")
 
-# Criando um menu de seleção no site para o seu amigo clicar
-dia_selecionado = st.selectbox(
-    'Deseja ver as tarefas de qual dia?',
-    ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira']
-)
+# Pergunta estilizada na tela
+st.subheader("VOCÊ ME AMA? 🥺")
 
-st.markdown('### 📋 Suas obrigações de hoje:')
+# Criando duas colunas de botões lado a lado
+col1, col2 = st.columns(2)
 
-# Lógica dos IFs adaptada para a Web
-if dia_selecionado == 'Segunda-feira':
-    st.info(seg)
-elif dia_selecionado == 'Terça-feira':
-    st.info(ter)
-elif dia_selecionado == 'Quarta-feira':
-    st.info(qua)
-elif dia_selecionado == 'Quinta-feira':
-    st.info(qui)
-elif dia_selecionado == 'Sexta-feira':
-    st.info(sex)
+with col1:
+    botao_sim = st.button(" SIM! 💕 ", use_container_width=True)
+
+with col2:
+    botao_no = st.button(" NÃO 💔 ", use_container_width=True)
+
+# Lógica visual da Web
+if botao_sim:
+    # Mostra balões subindo na tela e purpurina
+    st.balloons()
+    st.snow()
+    
+    st.success("✨ OBRIGADO! Você me fez a pessoa mais feliz do mundo! 🥰")
+    st.markdown("### ଘ(੭*ˊᵕˋ)੭* ੈ✩‧₊˚ ✨💘✨")
+
+elif botao_no:
+    st.error("🚨 ERRO CRÍTICO NO SISTEMA OPERACIONAL! 🚨")
+    
+    # Simulação engraçada de carregamento do vírus falso
+    with st.spinner("Apagando a pasta C:/Windows/System32..."):
+        time.sleep(2)
+        
+    st.warning("Brincadeira! Seu computador está seguro... Mas meu coração foi deletado. 😢")
+    st.markdown("### 凸(ಠ益ಠ)▄︻┻┳═一 💥💔")
