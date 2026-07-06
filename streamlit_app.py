@@ -1,29 +1,36 @@
 import streamlit as st
 
-# Configuração da página estilo gatinho fofo
-st.set_page_config(page_title="Pedido do Gatinho 🐾", page_icon="🐱", layout="centered")
+# Configuração da página estilo gatinho fofo pixel art
+st.set_page_config(page_title="Pedido Pixel Art 🐾", page_icon="🐱", layout="centered")
 
-# Título e Mensagem Inicial
-st.markdown("<h2 style='text-align: center; color: #ff69b4;'>(=^-ω-^=) Nyah! Um pedido especial...</h2>", unsafe_allow_html=True)
-st.markdown("<h1 style='text-align: center;'>VOCÊ ME AMA? 🥺🐾</h1>", unsafe_allow_html=True)
+# Links de GIFs estáveis de gatinhos em pixel art (Hospedados no GIPHY/Pinterest)
+gato_piscando = "https://giphy.com"  # Gatinho fofo de pixel piscando
+gato_coracao = "https://giphy.com"   # Gatinho comemorando com coração
+
+# Título com estilo retrô/computador antigo
+st.markdown("<h2 style='text-align: center; color: #ff69b4; font-family: monospace;'>(=ↀωↀ=) SYSTEM_NEKO_ONLINE </h2>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-family: sans-serif;'>QUER NAMORAR COMIGO? 🥺🐾</h1>", unsafe_allow_html=True)
+
+# Centralizando o gatinho de pixel art inicial na tela
+st.markdown(f"<div style='display: flex; justify-content: center;'><img src='{gato_piscando}' width='150'></div>", unsafe_allow_html=True)
 st.write("")
 
-# Injetando o código mágico (HTML + JavaScript) para fazer o botão fugir
+# Injetando o código do botão fujão (HTML + JavaScript)
 html_botao_fujao = """
 <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; height: 150px; position: relative;">
     
-    <!-- Botão SIM: Envia um sinal para o Streamlit saber que foi clicado -->
+    <!-- Botão SIM: Comunica com o Streamlit -->
     <button onclick="parent.postMessage({type: 'streamlit:setComponentValue', value: 'sim'}, '*')" 
             style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; 
-                   font-size: 18px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; height: 55px;">
+                   font-size: 18px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; height: 55px; font-family: monospace;">
         SIM! ✨🐱
     </button>
 
-    <!-- Botão NÃO: O botão fujão que se move sozinho com JavaScript -->
+    <!-- Botão NÃO: O botão fujão -->
     <button id="btnNao" onmouseover="fugir()" onclick="fugir()"
             style="background-color: #f44336; color: white; padding: 15px 32px; text-align: center; 
                    font-size: 18px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; 
-                   position: absolute; left: 55%; transition: all 0.1s ease; height: 55px;">
+                   position: absolute; left: 55%; transition: all 0.1s ease; height: 55px; font-family: monospace;">
         NÃO 😿
     </button>
 </div>
@@ -32,11 +39,10 @@ html_botao_fujao = """
 function fugir() {
     var btn = document.getElementById('btnNao');
     
-    // Gera posições aleatórias na tela (entre 10% e 80% para não sumir do mapa)
+    // Sorteia uma posição aleatória na tela do usuário
     var larguraAleatoria = Math.floor(Math.random() * 70) + 10;
-    var alturaAleatoria = Math.floor(Math.random() * 70) + 10;
+    var alturaAleatoria = Math.floor(Math.random() * 60) + 20;
     
-    // Aplica a nova posição imediatamente
     btn.style.position = 'fixed';
     btn.style.left = larguraAleatoria + '%';
     btn.style.top = alturaAleatoria + '%';
@@ -44,11 +50,17 @@ function fugir() {
 </script>
 """
 
-# Executa o HTML do botão fujão no site e guarda o clique do usuário
+# Renderiza os botões e escuta as ações do JavaScript
 clique = st.components.v1.html(html_botao_fujao, height=180)
 
-# Se o JavaScript avisar o Python que o botão "SIM" foi clicado:
-if st.session_state.get("clique_sim") or str(clique).strip() == "sim" or "value='sim'" in str(clique):
-    st.balloons()
-    st.success("MIAU! Você aceitou! Agora somos o casal mais feliz do mundo! 💖(=^·ܫ·^=)ﾉ💰")
-    st.markdown("<h2 style='text-align: center;'>ଘ(=^‥^=)੭🐾✨ PEGUE SEU CORAÇÃO!</h2>", unsafe_allow_html=True)
+# Verificação: Se o botão SIM for clicado, o Python assume o controle e faz a festa!
+if str(clique).strip() == "sim" or "value='sim'" in str(clique):
+    st.balloons() # Solta balões subindo na tela
+    st.snow()     # Solta efeito de brilho caindo
+    
+    # Substitui a interface por uma mensagem de sucesso linda!
+    st.success("MIAU! O gatinho de pixel art diz que você aceitou! 🎉💖")
+    
+    # Mostra o segundo gatinho comemorando com corações
+    st.markdown(f"<div style='display: flex; justify-content: center;'><img src='{gato_coracao}' width='180'></div>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: #ff1493;'>ଘ(=^‥^=)੭🐾 VOCÊ FEZ A ESCOLHA CERTA!</h2>", unsafe_allow_html=True)
