@@ -1,39 +1,54 @@
 import streamlit as st
-import time
 
-# Configuração da página para ficar com estilo escuro/bonito
-st.set_page_config(page_title="Pedido Especial", page_icon="❤️", layout="centered")
+# Configuração da página estilo gatinho fofo
+st.set_page_config(page_title="Pedido do Gatinho 🐾", page_icon="🐱", layout="centered")
 
-st.title("💌 Uma pergunta muito importante...")
-st.markdown("---")
+# Título e Mensagem Inicial
+st.markdown("<h2 style='text-align: center; color: #ff69b4;'>(=^-ω-^=) Nyah! Um pedido especial...</h2>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>VOCÊ ME AMA? 🥺🐾</h1>", unsafe_allow_html=True)
+st.write("")
 
-# Pergunta estilizada na tela
-st.subheader("VOCÊ ME AMA? 🥺")
+# Injetando o código mágico (HTML + JavaScript) para fazer o botão fugir
+html_botao_fujao = """
+<div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; height: 150px; position: relative;">
+    
+    <!-- Botão SIM: Envia um sinal para o Streamlit saber que foi clicado -->
+    <button onclick="parent.postMessage({type: 'streamlit:setComponentValue', value: 'sim'}, '*')" 
+            style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; 
+                   font-size: 18px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; height: 55px;">
+        SIM! ✨🐱
+    </button>
 
-# Criando duas colunas de botões lado a lado
-col1, col2 = st.columns(2)
+    <!-- Botão NÃO: O botão fujão que se move sozinho com JavaScript -->
+    <button id="btnNao" onmouseover="fugir()" onclick="fugir()"
+            style="background-color: #f44336; color: white; padding: 15px 32px; text-align: center; 
+                   font-size: 18px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; 
+                   position: absolute; left: 55%; transition: all 0.1s ease; height: 55px;">
+        NÃO 😿
+    </button>
+</div>
 
-with col1:
-    botao_sim = st.button(" SIM! 💕 ", use_container_width=True)
+<script>
+function fugir() {
+    var btn = document.getElementById('btnNao');
+    
+    // Gera posições aleatórias na tela (entre 10% e 80% para não sumir do mapa)
+    var larguraAleatoria = Math.floor(Math.random() * 70) + 10;
+    var alturaAleatoria = Math.floor(Math.random() * 70) + 10;
+    
+    // Aplica a nova posição imediatamente
+    btn.style.position = 'fixed';
+    btn.style.left = larguraAleatoria + '%';
+    btn.style.top = alturaAleatoria + '%';
+}
+</script>
+"""
 
-with col2:
-    botao_no = st.button(" NÃO 💔 ", use_container_width=True)
+# Executa o HTML do botão fujão no site e guarda o clique do usuário
+clique = st.components.v1.html(html_botao_fujao, height=180)
 
-# Lógica visual da Web
-if botao_sim:
-    # Mostra balões subindo na tela e purpurina
+# Se o JavaScript avisar o Python que o botão "SIM" foi clicado:
+if st.session_state.get("clique_sim") or str(clique).strip() == "sim" or "value='sim'" in str(clique):
     st.balloons()
-    st.snow()
-    
-    st.success("✨ OBRIGADO! Você me fez a pessoa mais feliz do mundo! 🥰")
-    st.markdown("### ଘ(੭*ˊᵕˋ)੭* ੈ✩‧₊˚ ✨💘✨")
-
-elif botao_no:
-    st.error("🚨 ERRO CRÍTICO NO SISTEMA OPERACIONAL! 🚨")
-    
-    # Simulação engraçada de carregamento do vírus falso
-    with st.spinner("Apagando a pasta C:/Windows/System32..."):
-        time.sleep(2)
-        
-    st.warning("Brincadeira! Seu computador está seguro... Mas meu coração foi deletado. 😢")
-    st.markdown("### 凸(ಠ益ಠ)▄︻┻┳═一 💥💔")
+    st.success("MIAU! Você aceitou! Agora somos o casal mais feliz do mundo! 💖(=^·ܫ·^=)ﾉ💰")
+    st.markdown("<h2 style='text-align: center;'>ଘ(=^‥^=)੭🐾✨ PEGUE SEU CORAÇÃO!</h2>", unsafe_allow_html=True)
