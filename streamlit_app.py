@@ -1,33 +1,42 @@
 import streamlit as st
 
-# Configuração visual da página do site
-st.set_page_config(page_title="Validação de Acesso", page_icon="🔒", layout="centered")
+# Configuração visual com o tema de amor
+st.set_page_config(page_title="Nosso Espaço 💕", page_icon="❤️", layout="centered")
 
-st.title("🛡️ Sistema de Verificação de Entrada")
+st.title("🔒 Sistema de Verificação Especial")
 st.markdown('=' * 45)
 
-# 1. Campo para o usuário digitar a idade (Substitui o input numérico)
-idade = st.number_input("👉 Qual a data do nosso aniversário de namoro? ", min_value=0, max_value=120, value=0, step=1)
+# 🔥 CORREÇÃO: Mudamos para text_input para aceitar as barras da data
+data_namoro = st.text_input("👉 Qual a data do nosso aniversário de namoro? (DD/MM/AAAA)").strip()
 st.markdown('=' * 45)
 
-# Verificação de segurança da idade
-if idade == '30/11/2023':
-    # Se for maior de idade, o acesso é liberado e mostra o resto do formulário
-    st.success("Acesso Liberado 🔓")
+# Verificação exata da data do aniversário de namoro
+if data_namoro == '30/11/2023':
+    # Efeito cascata de balões subindo no site ao acertar a data!
+    st.balloons()
+    
+    st.success("Acesso Liberado 🔓 Bem-vinda ao nosso espaço!")
     st.markdown('=' * 45)
 
-    # Campo de texto na web para a pergunta do Lucas
-    lu = st.text_input("❓Você me ama❓ ").lower().strip()
+    # Pergunta romântica na web
+    amor = st.text_input("❓ Você me ama? 🥺").lower().strip()
 
-    s = 'Sempre soube disso. TE AMO'
-    n = 'Oxi existe essa opção😒'
+    s = 'Sempre soube disso. EU TAMBÉM TE AMO! 💖'
+    n = 'Oxi, existe essa opção? 😒'
 
-    # Só exibe o resultado se o usuário já tiver digitado alguma coisa
-    if lu != "":
-        if lu == 'sim' or lu == 's':
-            st.warning(f"O Lucas {s}")
-        elif lu == 'não' or lu == 'nao' or lu == 'n':
-            st.info(f"{n}")
+    # Só exibe o resultado se a pessoa já tiver digitado a resposta
+    if amor != "":
+        if amor in ['sim', 's', 'muito', 'com certeza']:
+            # Caixa verde de sucesso absoluto
+            st.success(f"🥰 {s}")
+            st.markdown("### ଘ(=^‥^=)੭🐾✨")
+        elif amor in ['não', 'nao', 'n', 'nem um pouco']:
+            # Caixa amarela de aviso/brincadeira
+            st.warning(f"🤨 {n}")
         else:
-            st.error("A resposta é simples, sim ou não.")
+            # Caixa vermelha de erro se digitar outra coisa
+            st.error("A resposta é simples: sim ou não! 😝")
 
+elif data_namoro != "":
+    # Se a pessoa digitou algo, mas errou a data de namoro
+    st.error("Acesso Bloqueado 🔒 Data incorreta! Tente se lembrar... 😥")
